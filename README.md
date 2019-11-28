@@ -1,5 +1,7 @@
 # OSS Summit - IoT Edge Lab
 
+![Azure Dev Ops](images/cloudsummit.png)
+
 You can easily adopt DevOps with your **Azure IoT Edge** applications with the built-in **Azure IoT Edge** tasks in **Azure Pipelines**. This lab demonstrates how you can use the **continuous integration** and **continuous deployment** features of **Azure Pipelines** to build, test, and deploy applications quickly and efficiently to your **Azure IoT Edge**.
 
 ![Azure Dev Ops](images/azuredevops.png)
