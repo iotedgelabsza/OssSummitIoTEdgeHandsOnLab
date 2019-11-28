@@ -1,10 +1,13 @@
-# OSS Summit IoT Edge Lab
+# OSS Summit - IoT Edge Lab
 
 You can easily adopt DevOps with your **Azure IoT Edge** applications with the built-in **Azure IoT Edge** tasks in **Azure Pipelines**. This lab demonstrates how you can use the **continuous integration** and **continuous deployment** features of **Azure Pipelines** to build, test, and deploy applications quickly and efficiently to your **Azure IoT Edge**.
 
+![Azure Dev Ops](images/azuredevops.png)
+
+
 In this lab we will also create an **Azure IoT Hub** and **Azure Container Registry**.
 
-Pre-requisite
+# Pre-requisites
 
 ## Azure Resource Group
 
@@ -81,15 +84,27 @@ Take note of all the *Access Keys*  This will be need when setting up both the *
 
 ![Create a new build pipeline](images/acraccesskeys3.png)
 
-## Configure the Edge Device
+## Configure the Edge Device  
 
-->  Url to Setting up IoT Edge Device
+Does this **ONLY** if you have a device ready at hand.  It's not necessary for the **Build** and **Release** process in **Azure Dev Ops**, but it may be nice to see the **Continuous Build** and **Continuous Deploy** happen from *Code* through to *Device*.
+
+More information on configuring an IoT Edge Device can be found here: **Azure IoT Edge** can be found here: [Azure IoT Edge Documentation](https://docs.microsoft.com/bs-cyrl-ba/azure/iot-edge/)
 
 
+Take note of the **Access Keys** set up for the **IoT Hub** previosuly set up.  Copy the **Primary Connection String**
+
+![Attach Device to IoT Edge](images/hubaddiotedgedeviceprimarykey6.png)
+
+Edit the **config.yaml**, in the */etc/IoTEdge* folder on the device (for linux devices)
 
 ![Attach Device to IoT Edge](images/deviceconfigureyaml1.png)
 
+We are using the **symmetric keys** for the device, so we'll be editing the **Connection string** property in the **config.yaml**   
+
 ![Attach Device to IoT Edge - Configure YAML](images/deviceconfigureyaml2.png)
+
+Paste the previously copied **Primary Connection String**
+
 
 ![Attach Device to IoT Edge - Use Connection String](images/deviceconfigureyaml3.png)
 
@@ -234,8 +249,13 @@ If the **Build** Pipeline is executed there may be an Authorization failure.   *
 
 ![Authorisation](images/WhenRunningAuthorizeresources99.png)
 
+Add the **Copy Files** task to edit it. Use this **task** to **copy** files to the **artifact staging** directory.
 
-![COPY ARTEFACTS](images/azdopublishbuildartefacts24.png)
+*Display name*, **Copy Files** to: *Drop* folder.
+*Contents*, put two lines in this section, *deployment.template.json* and **/*module.json*. These two types of files are the inputs to generate IoT Edge deployment manifest. Need to be copied to the artifact staging folder and published for release pipeline.
+*Target Folder*, Put the variable **$(Build.ArtifactStagingDirectory)**. 
+
+![Copy Artifacts](images/azdocopyfiles24.png)
 
 
 Add a **"Publish build artifacts"** task.  In *Path to publish*, put the variable $(Build.ArtifactStagingDirectory)
@@ -357,5 +377,14 @@ Under *Advanced \ IoT Edge deployment ID* set the variable: **$(System.TeamProje
 
 ![Create a new Release pipeline - Deploy To IoT Device](images/azdoselectdeploymentaddnewtaskdeploytodeviceconfigured39.png)
 
-Trigger a Build to Verify if everything is complete.
+Trigger a **Build** to **Verify** if everything is complete successfully.
 
+![Verify Release](images/azdotestbuild40.png)
+
+We should now have a succesful **release**.
+
+![Success - Release](images/azdotestbuildRelease41.png)
+
+And we have **Continuous Deploy** to a device
+
+![Continuous Deploy](images/deviceworking2.png)
