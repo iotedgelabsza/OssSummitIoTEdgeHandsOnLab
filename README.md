@@ -115,8 +115,6 @@ Paste the previously copied **Primary Connection String**
 
 Import the **IoT Edge** solution from the pre built repository.   This Edge application consists of a few modules:  *simulated temperature sensor*.  
 
-The lab will be focused on deploying the **IoT Edge** solution to a Raspberry Pi and hence the build proceses with all be Armv7 packages.
-
 Let begin by **importing** the solution.
 
 ![Import Git Repo](images/importrepo.png)
@@ -170,7 +168,7 @@ Select the **Action** of *"Build Module Images"*
 
 The template json file in our solution is "deployment.template.json".
 
-This **Build Pipeline** is intended for a **Raspberry Pi**, so we will choose "Arm32v7" as the **Default Platform**.
+Choose the appropriate architecture for the devices you are targeting.    eg.  **Raspberry Pi** will use  "Arm32v7" as the **Default Platform**.
 
 ![New Azure IoT Edge Build Module Images Task](images/azdobuildimagesarmv79.png)
 
@@ -241,7 +239,7 @@ Select a valid **Azure Subscription**
 
 The template json file in our solution is "deployment.template.json".
 
-This **Build Pipeline** is intended for a **Raspberry Pi**, so we will choose "Arm32v7" as the **Default Platform**.
+Choose the appropriate architecture for the devices you are targetting.    eg.  **Raspberry Pi** will use  "Arm32v7" as the **Default Platform**.
 
 Add **Registry Credential** to the deploy manifest.
 
@@ -329,7 +327,7 @@ The *Template json file" to be used is the **$(System.DefaultWorkingDirectory)/d
 
 ![Create a new Release pipeline - Select Deploy template](images/azdoselectdeploymentmanifestfolder35.png)
 
-This **Build Pipeline** is intended for a **Raspberry Pi**, so we will choose "Arm32v7" as the **Default Platform**.
+Choose the appropriate architecture for the devices you are targeting.    eg.  **Raspberry Pi** will use  "Arm32v7" as the **Default Platform**.
 
 The *Output Path* for the manifest is **$(System.DefaultWorkingDirectory)/drop/drop/configs/deployment.json**
 
